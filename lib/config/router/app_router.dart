@@ -1,14 +1,36 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cleanapp/config/router/route_arguments.dart';
+import 'package:cleanapp/presentation/ui/screens/detail_screen/detail_screen.dart';
+import 'package:flutter/material.dart';
 
-import '../../presentation/home.dart';
+import './route_transition.dart';
+import '../../presentation/ui/screens/home_screen/home.dart';
 
-part 'app_router.gr.dart';
+class RouteName {
+  static const homescreen = '/homescreen';
+  static const userDetailScreen = '/userDetailScreen';
+}
 
-@AutoRouterConfig()
-class AppRouter extends _$AppRouter {
-  @override
-  List<AutoRoute> get routes => [
-        /// routes go here
-      ];
+class GenerateRoute {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final route = settings.name;
+    final arguments = settings.arguments;
+
+    switch (route) {
+      case '/':
+        return AppTransations.getSlideTransationRtL(
+            transitionChild: const MyHomePage());
+
+      case RouteName.homescreen:
+        return AppTransations.getSlideTransationRtL(
+            transitionChild: const MyHomePage());
+      case RouteName.userDetailScreen:
+        final userArgs = arguments as UserDetailArgs;
+        return AppTransations.getSlideTransationRtL(
+            transitionChild: DetailScreen(userModel: userArgs.userModel));
+
+      default:
+        return AppTransations.getSlideTransationRtL(
+            transitionChild: const MyHomePage());
+    }
+  }
 }

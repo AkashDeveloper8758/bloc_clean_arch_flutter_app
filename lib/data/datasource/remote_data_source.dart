@@ -25,7 +25,7 @@ class RemoteDatasourceImplementation extends RemoteDataSource {
       UsersListRequest request) async {
     try {
       var clientResponse = await client.get(Uri.parse(
-          '${ApiStringsConstants.baseUrl}/api/users?page=${request.page}'));
+          '${ApiStringsConstants.baseUrl}api/users?page=${request.page}'));
       if (clientResponse.statusCode != 200) {
         return UsersListResponse(
             userListState:
@@ -33,8 +33,7 @@ class RemoteDatasourceImplementation extends RemoteDataSource {
       }
       var jsonData = jsonDecode(clientResponse.body);
       var usersListData = jsonData['data'] as List;
-      var usersModels =
-          usersListData.map((e) => UserModel.fromJson(e)).toList();
+      var usersModels = usersListData.map((e) => UserModel.fromMap(e)).toList();
       return UsersListResponse(
           userListState: DataSuccess<List<UserModel>>(data: usersModels));
     } catch (err) {
@@ -49,7 +48,7 @@ class RemoteDatasourceImplementation extends RemoteDataSource {
       UserDataRequest userDataRequest) async {
     try {
       var clientResponse = await client.get(Uri.parse(
-          '${ApiStringsConstants.baseUrl}/api/users/${userDataRequest.userId}'));
+          '${ApiStringsConstants.baseUrl}api/users/${userDataRequest.userId}'));
       if (clientResponse.statusCode != 200) {
         return UserDetailsResponse(
             userDetailDataState:

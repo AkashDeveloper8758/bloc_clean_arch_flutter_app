@@ -5,7 +5,8 @@ abstract class DataState<T> {
 }
 
 class DataSuccess<T> extends DataState<T> {
-  const DataSuccess({required T data}) : super(data: data);
+  final T data;
+  const DataSuccess({required this.data}) : super(data: data);
 }
 
 class DataFailed<T> extends DataState<T> {
